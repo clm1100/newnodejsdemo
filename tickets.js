@@ -7,33 +7,44 @@ var arr =[
     { start: '北京', end: '沧州' }
     
  ]
-var startarr= arr.map((e,l)=>{
-    return e.start;
-});
-var endarr =arr.map((e,l)=>{
-    return e.end
-});
-var arr2 = [];
-for(var i=0;i<startarr.length;i++){
-    if(endarr.indexOf(startarr[i])==-1){
-       let a= arr.filter((e,t)=>{
-            return e.start == startarr[i]
-        })
-        arr2.push(a[0])
-    }
-}
+let a = arr.filter((e,i,arr)=>arr.map(v=>v.end).indexOf(e.start) == -1);
 
-for(var i=0;i<arr.length;i++){
-    let t = arr2[arr2.length-1];
-    p(t.end,arr)
-}
+let b = arr.reduce((pre,cur,index,arr)=>{
+   return pre.concat(arr.filter((e,i)=>{
+       return e.start == pre[pre.length-1].end;
+    }));
 
-function p(t,arr){
-    var tt = arr.filter((e)=>{
-        return e.start ==t
-    });
-    if(tt.length==1){
-        arr2.push(tt[0])
-    }
-}
-console.log(arr2)
+},a)
+
+console.log(b);
+
+// var startarr= arr.map((e,l)=>{
+//     return e.start;
+// });
+// var endarr =arr.map((e,l)=>{
+//     return e.end
+// });
+// var arr2 = [];
+// for(var i=0;i<startarr.length;i++){
+//     if(endarr.indexOf(startarr[i])==-1){
+//        let a= arr.filter((e,t)=>{
+//             return e.start == startarr[i]
+//         })
+//         arr2.push(a[0])
+//     }
+// }
+
+// for(var i=0;i<arr.length;i++){
+//     let t = arr2[arr2.length-1];
+//     p(t.end,arr)
+// }
+
+// function p(t,arr){
+//     var tt = arr.filter((e)=>{
+//         return e.start ==t
+//     });
+//     if(tt.length==1){
+//         arr2.push(tt[0])
+//     }
+// }
+// console.log(arr2)
