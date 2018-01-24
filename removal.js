@@ -45,16 +45,40 @@ var arr = [1,2,3,4,5,5,5,5,1,1,2,2,3,4,5,6,7,5,3];
 // var newarr = fileterhash(arr);
 // console.log(newarr)
 
-function forarr(arr){
-    let newarr = [...arr]
-    for(var i=0;i<newarr.length;i++){
-        for(var j=i+1;j<newarr.length;j++){
-            if(newarr[i]===newarr[j]){
-                newarr.splice(j,1);
-                j--
-            }
-        }
+// function forarr(arr){
+//     let newarr = [...arr]
+//     for(var i=0;i<newarr.length;i++){
+//         for(var j=i+1;j<newarr.length;j++){
+//             if(newarr[i]===newarr[j]){
+//                 newarr.splice(j,1);
+//                 j--
+//             }
+//         }
+//     }
+//     return newarr;
+// }
+// console.log(forarr(arr))
+
+// function unique(arr){
+//     return Array.from(new Set(arr));
+// }
+// function unique(arr){
+//     return [...new Set(arr)];
+// }
+
+// console.log(unique(arr))
+
+// function unique(arr){
+//     var obj = {};
+//     return arr.filter(e=>{return !obj[e]&&(obj[e]=1)})
+// }
+
+// console.log(unique(arr))
+
+let ar = arr.map((e)=>{
+    if(e<4){
+        return e
     }
-    return newarr;
-}
-console.log(forarr(arr))
+})
+
+console.log(ar)
