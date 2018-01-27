@@ -7,16 +7,15 @@ var arr =[
     { start: '北京', end: '沧州' }
     
  ]
-// let a = arr.filter((e,i,arr)=>arr.map(v=>v.end).indexOf(e.start) == -1);
+let a = arr.filter((e,i,arr)=>arr.map(v=>v.end).indexOf(e.start) == -1);
 
-// let b = arr.reduce((pre,cur,index,arr)=>{
-//    return pre.concat(arr.filter((e,i)=>{
-//        return e.start == pre[pre.length-1].end;
-//     }));
+let b = arr.reduce((pre,cur,index,arr)=>{
+   return pre.concat(arr.filter((e,i)=>{
+       return e.start == pre[pre.length-1].end;
+    }));
 
-// },a)
-
-// console.log(b);
+},a)
+console.log(b);
 // 计算出每趟车的起始站
 var startarr= arr.map((e,l)=>{
     return e.start;

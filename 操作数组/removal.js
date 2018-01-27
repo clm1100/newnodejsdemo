@@ -59,21 +59,21 @@ var arr = [1,2,3,4,5,5,5,5,1,1,2,2,3,4,5,6,7,5,3];
 // }
 // console.log(forarr(arr))
 
-// function unique(arr){
-//     return Array.from(new Set(arr));
-// }
-// function unique(arr){
-//     return [...new Set(arr)];
-// }
+function unique(arr){
+    return Array.from(new Set(arr));
+}
+function unique(arr){
+    return [...new Set(arr)];
+}
 
-// console.log(unique(arr))
+console.log(unique(arr))
 
-// function unique(arr){
-//     var obj = {};
-//     return arr.filter(e=>{return !obj[e]&&(obj[e]=1)})
-// }
+function unique(arr){
+    var obj = {};
+    return arr.filter(e=>{return !obj[e]&&(obj[e]=1)})
+}
 
-// console.log(unique(arr))
+console.log(unique(arr))
 
 let ar = arr.map((e)=>{
     if(e<4){
