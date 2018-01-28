@@ -108,7 +108,7 @@
     }
     //定时器，开始游戏时，调用
     this.speed=function(){
-      timer=setInterval('snake.move()',initSpeed);
+      timer=setInterval(function(){snake.move()},initSpeed);
     }
     //条件处理
     this.condition=function(){

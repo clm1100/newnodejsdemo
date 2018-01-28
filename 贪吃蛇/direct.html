@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+    var snake = {
+        direct:'left'
+    }
+    document.onkeydown = function (event) {
+            //按下任意键，开始游戏
+            // if (snake.direct === null) {
+            //     // snake.speed();
+            // }
+            switch (window.event ? window.event.keyCode : event.keyCode) {//浏览器兼容处理
+                case 87:
+                    snake.direct='up'
+                    console.log("up")
+                    break;
+                case 83:
+                snake.direct='down'
+                    console.log('down')
+                    break;
+                case 68:
+                snake.direct='right'
+                    console.log('right')
+                    break;
+                case 65:
+                snake.direct='left'
+                    console.log('left')
+                    break;
+            }
+        }
+        function loop(){
+            console.log(snake.direct)
+            requestAnimationFrame(loop)
+        }
+        // loop()
+    </script>
+</body>
+</html>
