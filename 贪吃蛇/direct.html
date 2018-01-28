@@ -35,11 +35,18 @@
                     break;
             }
         }
-        function loop(){
-            console.log(snake.direct)
+       function wrapper(){
+        var start =  Date.now();
+        return function loop(){
+            // console.log(Date.now())
+            if(Date.now()-start >=1000){
+                start = Date.now()
+                console.log(snake.direct)
+            }
             requestAnimationFrame(loop)
         }
-        // loop()
+       }
+        wrapper()()
     </script>
 </body>
 </html>
