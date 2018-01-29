@@ -12,10 +12,18 @@
 // }
 // console.log(arr)
 
-var o = {};
-var prototype = Object.getPrototypeOf(o);
-console.log(prototype === Object.prototype); // return true
+// var o = {};
+// var prototype = Object.getPrototypeOf(o);
+// console.log(prototype === Object.prototype); // return true
 
-// 部分浏览器有效
-var o2 = {};
-console.log(o2.__proto__ === Object.prototype); // return true
+// // 部分浏览器有效
+// var o2 = {};
+// console.log(o2.__proto__ === Object.prototype); // return true
+
+function sum(a,b){
+    console.log(a,b)
+}
+sum.call(null,1,2);
+sum.apply(null,[1,2])
+sum.bind(null,1,2)()
+sum.bind(null,1)(2)
