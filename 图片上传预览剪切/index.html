@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <canvas id="imgCanvas"></canvas>
+    <img id="demo" src="" alt="">
+    <input id="inputArea" type="file" />
+    <canvas id="resultCanvas"></canvas>
+    <script>
+        var theCanvas = document.getElementById("imgCanvas");
+        var canvasImg = theCanvas.getContext("2d"); //获取2D渲染背景
+
+        var resultCanvas = document.getElementById("resultCanvas");
+        var resultImg = resultCanvas.getContext("2d");
+
+        var reader = new FileReader();
+
+        var imgFrom = document.getElementById("inputArea");
+        var imgobj = new Image();
+
+
+        imgFrom.onchange = function () {
+            reader.readAsDataURL(imgFrom.files[0])
+
+        }
+        reader.onload = function (data) {
+            imgobj.src = data.target.result
+        }
+        imgobj.onload = function () {
+            init(imgobj)
+        }
+
+        function init(img) {
+            var flag = false; //记录是否为点击状态的标记
+            var W = img.width;
+            var H = img.height;
+            var cutData ;
+            theCanvas.width = W;
+            theCanvas.height = H;
+            canvasImg.drawImage(imgobj,0,0);
+            cutData = canvasImg.getImageData(100, 100, 200, 200);
+            resultImg.putImageData(cutData, 0, 0);
+            var startX = 0;
+            var startY = 0;
+            //当鼠标被按下
+            theCanvas.addEventListener("mousedown", e => {
+                flag = true; //改变标记状态，置为点击状态
+                startX = e.clientX; //获得起始点横坐标
+                startY = e.clientY; //获得起始点纵坐标
+            })
+
+            //当鼠标在移动
+            theCanvas.addEventListener("mousemove",e => {
+                if (flag) { //判断鼠标是否被拖动
+                    canvasImg.clearRect(0, 0, W, H); //清空整个画面
+                    canvasImg.drawImage(img, 0, 0); //重新绘制图片
+                    canvasImg.strokeRect(startX, startY, e.clientX - startX, e.clientY - startY); //绘制黑框
+                    resultImg.clearRect(0, 0, cutData.width, cutData.height); //清空预览区域
+                    console.log()
+                    try {
+                        cutData = canvasImg.getImageData(startX, startY, e.clientX - startX, e.clientY - startY); //截取黑框区域图片信息
+                    resultImg.putImageData(cutData, 0, 0); //将图片信息赋给预览区域
+                    } catch (error) {
+                        
+                    }
+                    
+                }
+            } )
+
+            //当鼠标左键抬起
+            theCanvas.addEventListener("mouseup", e => {
+                flag = false; //将标志置为已抬起状态
+            });
+            function boot(fn){
+                let aa = null;
+                return function(){
+                    clearTimeout(aa)
+                  aa= setTimeout(fn,200)
+                }
+            }
+
+        }
+    </script>
+</body>
+
+</html>

@@ -30,17 +30,8 @@
             const queue = [
                 [x, y]
             ]
-            console.log(arr)
-            // const memo = arr.map(row => new Array(row.length).fill(false));
-            const memo = arr.map(function(row,index){
-                if(index==5){
-                    console.log(row);
-                    console.log(new Array(row.length).fill(false))
-                }
-                return new Array(row.length).fill(false)
-            })
-
-            console.log(memo)
+            const memo = arr.map(row => new Array(row.length).fill(false));
+            // console.log(memo)
             const direction = [
                 [-1, 0],
                 [1, 0],
@@ -50,7 +41,7 @@
 
             while (queue.length > 0) {
                 const [x, y] = queue.pop();
-                console.log(x,y)
+                // console.log(queue)
                 direction.forEach(([h, v]) => {
                     const newX = x + h
                     const newY = y + v
@@ -71,8 +62,8 @@
             }
             return result
         }
-        let result = fn([3, 4])
-        // console.log(fn([3, 4]))
+
+        console.log(fn([3, 4]))
     </script>
 </body>
 
