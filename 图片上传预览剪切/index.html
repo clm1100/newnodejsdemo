@@ -6,6 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <style>
+    #resultCanvas{
+        width: 300px;
+        height: 400px
+    }
+    </style>
 </head>
 
 <body>
@@ -63,13 +69,15 @@
                     canvasImg.drawImage(img, 0, 0); //重新绘制图片
                     canvasImg.strokeRect(startX, startY, e.clientX - startX, e.clientY - startY); //绘制黑框
                     resultImg.clearRect(0, 0, cutData.width, cutData.height); //清空预览区域
-                    console.log()
                     try {
-                        cutData = canvasImg.getImageData(startX, startY, e.clientX - startX, e.clientY - startY); //截取黑框区域图片信息
-                    resultImg.putImageData(cutData, 0, 0); //将图片信息赋给预览区域
+                        cutData = canvasImg.getImageData(startX, startY, e.clientX - startX||1, e.clientY - startY||1); //截取黑框区域图片信息
                     } catch (error) {
-                        
+                        console.log(error)
                     }
+                    resultImg.width =cutData.width
+                    resultImg.height = cutData.height
+                    resultImg.putImageData(cutData, 0, 0); //将图片信息赋给预览区域
+                    
                     
                 }
             } )
