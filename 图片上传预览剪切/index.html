@@ -8,8 +8,12 @@
     <title>Document</title>
     <style>
     #resultCanvas{
-        width: 300px;
-        height: 400px
+        width: 200px;
+        height: 200px;
+        background: #f45
+    }
+    #div1{
+        border: 1px solid #f45
     }
     </style>
 </head>
@@ -18,7 +22,9 @@
     <canvas id="imgCanvas"></canvas>
     <img id="demo" src="" alt="">
     <input id="inputArea" type="file" />
-    <canvas id="resultCanvas"></canvas>
+    <div id="div1">
+        <canvas id="resultCanvas"></canvas>
+    </div>
     <script>
         var theCanvas = document.getElementById("imgCanvas");
         var canvasImg = theCanvas.getContext("2d"); //获取2D渲染背景
@@ -51,8 +57,8 @@
             theCanvas.width = W;
             theCanvas.height = H;
             canvasImg.drawImage(imgobj,0,0);
-            cutData = canvasImg.getImageData(100, 100, 200, 200);
-            resultImg.putImageData(cutData, 0, 0);
+            cutData = canvasImg.getImageData(100, 0, 200, 200);
+            resultImg.putImageData(cutData,0,0);
             var startX = 0;
             var startY = 0;
             //当鼠标被按下
@@ -67,18 +73,14 @@
                 if (flag) { //判断鼠标是否被拖动
                     canvasImg.clearRect(0, 0, W, H); //清空整个画面
                     canvasImg.drawImage(img, 0, 0); //重新绘制图片
-                    canvasImg.strokeRect(startX, startY, e.clientX - startX, e.clientY - startY); //绘制黑框
+                    canvasImg.strokeRect(startX, startY, e.clientX - startX, e.clientX - startX); //绘制黑框
                     resultImg.clearRect(0, 0, cutData.width, cutData.height); //清空预览区域
                     try {
-                        cutData = canvasImg.getImageData(startX, startY, e.clientX - startX||1, e.clientY - startY||1); //截取黑框区域图片信息
+                        cutData = canvasImg.getImageData(startX, startY, e.clientX - startX||1, e.clientX - startX||1); //截取黑框区域图片信息
                     } catch (error) {
                         console.log(error)
                     }
-                    resultImg.width =cutData.width
-                    resultImg.height = cutData.height
-                    resultImg.putImageData(cutData, 0, 0); //将图片信息赋给预览区域
-                    
-                    
+                    resultImg.putImageData(cutData, 0, 0); //将图片信息赋给预览区域  
                 }
             } )
 
@@ -86,13 +88,6 @@
             theCanvas.addEventListener("mouseup", e => {
                 flag = false; //将标志置为已抬起状态
             });
-            function boot(fn){
-                let aa = null;
-                return function(){
-                    clearTimeout(aa)
-                  aa= setTimeout(fn,200)
-                }
-            }
 
         }
     </script>
