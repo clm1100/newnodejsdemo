@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        var arr = [
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0],
+            [0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0],
+            [0, 0, 0, 0, 1, 0, 1, 1, 1, 0, 0],
+            [0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0],
+            [0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0],
+            [0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        ]
+
+        function fn([x, y]) {
+            if (arr[x][y] !== 1) return false
+
+            const queue = [
+                [x, y]
+            ]
+            console.log(arr)
+            // const memo = arr.map(row => new Array(row.length).fill(false));
+            const memo = arr.map(function(row,index){
+                if(index==5){
+                    console.log(row);
+                    console.log(new Array(row.length).fill(false))
+                }
+                return new Array(row.length).fill(false)
+            })
+
+            console.log(memo)
+            const direction = [
+                [-1, 0],
+                [1, 0],
+                [0, -1],
+                [0, 1],
+            ]
+
+            while (queue.length > 0) {
+                const [x, y] = queue.pop();
+                console.log(x,y)
+                direction.forEach(([h, v]) => {
+                    const newX = x + h
+                    const newY = y + v
+                    if (arr[newX][newY] === 1 && !memo[newX][newY]) {
+                        memo[newX][newY] = true
+                        queue.push([newX, newY])
+                    }
+                })
+            }
+
+            const result = []
+            for (let i = 0; i < arr.length; i++) {
+                for (let j = 0; j < arr[i].length; j++) {
+                    if (memo[i][j]) {
+                        result.push([i, j])
+                    }
+                }
+            }
+            return result
+        }
+        let result = fn([3, 4])
+        // console.log(fn([3, 4]))
+    </script>
+</body>
+
+</html>
