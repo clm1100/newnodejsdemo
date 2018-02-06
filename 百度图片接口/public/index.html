@@ -15,7 +15,7 @@
 <body>
   <div id="app">
     <input type="button" value="post请求" @click="postInfo">
-    <input type="file" v-model="img">
+    <input type="file" @change="uploadimg">
   </div>
 
   <script>
@@ -29,6 +29,15 @@
         postInfo() { 
           this.$http.post('/upload', {}).then(result => {
             console.log(result.body)
+          })
+        },
+        uploadimg(e){
+          console.log(e.target.files[0])
+          var qq = e.target.files[0]
+          var formdata = new FormData();
+          formdata.append('qq',qq);
+          this.$http.post('/upload', formdata).then(result => {
+            console.log(JSON.parse(result.body))
           })
         }
       }
