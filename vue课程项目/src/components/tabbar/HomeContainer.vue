@@ -4,7 +4,7 @@
     <!-- 轮播图区域 -->
     <mt-swipe :auto="4000">
       <!-- 在组件中，使用v-for循环的话，一定要使用 key -->
-      <mt-swipe-item v-for="item in lunbotuList" :key="item.url">
+      <mt-swipe-item v-for="item in lunbotuList" :key="item.img">
         <img :src="item.img" alt="">
       </mt-swipe-item>
     </mt-swipe>
@@ -55,6 +55,7 @@ export default {
         if (result.body.status === 0) {
           // 成功了
           this.lunbotuList = result.body.message;
+          console.log(this.lunbotuList)
         } else {
           // 失败的
           Toast("加载轮播图失败。。。");
