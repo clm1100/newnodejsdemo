@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app" >
+            <input v-model="text" type="text" id='a'>
+            <span id="b">222</span>
+    </div>
+<script>
+
+    // var dom = nodetofragment(document.getElementById('app'))
+    // console.log(document.getElementById('app').attributes[1].nodeValue)
+    // document.getElementById('app').appendChild(dom)
+    function nodetofragment(node,vm){
+        var flag = document.createDocumentFragment();
+        var child;
+
+        while(child = node.firstChild){
+            // 劫持之后,将vm上的data编译到dom上
+            compile(child,vm)
+            flag.appendChild(child)
+        }
+
+        return flag;
+    }
+
+
+
+    function compile(node,vm){
+        var reg = /\{\{(.*)\}\}/;
+        if(node.nodeType===1){
+            var attr = node.attributes;
+            for(var i=0;i<attr.length;i++){
+                if(attr[i].nodeName == 'v-model'){
+                    var name = attr[i].nodeValue;
+                    node.addEventListener('input',function(e){
+                        vm[name]=e.target.value;
+                        // console.log('333')
+                    })
+                    node.value = vm.data[name];
+                    node.removeAttribute('v-model');
+                }
+            }
+        }
+        if(node.nodeType===3){
+            if(reg.test(node.nodeValue)){
+                var name = RegExp.$1;
+                name = name.trim();
+                node.nodeValue= vm.data[name];
+            }
+        }
+    }
+
+    function Vue(options){
+        this.data = options.data;
+
+        var data = this.data;
+        observe(data,this)
+
+        var id = options.id;
+        var dom = nodetofragment(document.getElementById(id),this);
+        document.getElementById(id).appendChild(dom)
+
+    }
+    function defineReactive(obj,key,val){
+        Object.defineProperty(obj,key,{
+            get:function(){
+                return val
+            },
+            set:function(newVal){
+                if(newVal===val) return
+                val =newVal;
+                console.log(val)
+            }
+        })
+    }
+    function observe(obj,vm){
+        Object.keys(obj).forEach(function(key){
+            defineReactive(vm,key,obj[key])
+        })
+    }
+    var vm = new Vue({
+        id:'app',
+        data:{
+            text:'hello world'
+        }
+    })
+</script>
+</body>
+</html>
