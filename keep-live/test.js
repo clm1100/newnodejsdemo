@@ -5,9 +5,6 @@ const keepaliveAgent = new http.Agent({
   keepAlive: true,
 });
 const server = http.createServer((req, res) => {
-    res.writeHead('200',{
-        "Keep-Alive": timeout=5
-    })
   res.end('Hello World, ' + req.connection.remotePort);
 });
 server.on('clientError', (err, socket) => {
@@ -17,7 +14,7 @@ server.listen(3000);
 
 function request() {
   urllib.request('http://127.0.0.1:3000', {
-    // agent: keepaliveAgent,
+    agent: keepaliveAgent,
     dataType: 'text',
   }, (err, data, res) => {
     if (err) {
